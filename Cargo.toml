@@ -1,0 +1,28 @@
+[package]
+name = "careeraxis-mcp"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "NTU CareerAxis (CareerHub) MCP server + agent-first CLI"
+
+[[bin]]
+name = "careeraxis-mcp"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "sync", "io-std", "io-util", "process"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+anyhow = "1"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "gzip"] }
+scraper = "0.23"
+dirs = "6"
+percent-encoding = "2"
+tokio-tungstenite = "0.30"
+futures-util = "0.3"
+
+[profile.release]
+strip = true
+lto = "fat"
+codegen-units = 1
+opt-level = "s"
